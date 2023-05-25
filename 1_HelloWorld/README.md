@@ -32,8 +32,8 @@
 
 ## Làm cách nào để bạn thêm JavaScript vào trang web?
 
-- Các chương trình JavaScript có thể được chèn vào hầu hết mọi nơi trong HTML bằng cách sử dụng thẻ <script>.
-- Thẻ <script> chứa mã JavaScript được thực thi tự động khi trình duyệt xử lý thẻ đó.
+- Các chương trình JavaScript có thể được chèn vào hầu hết mọi nơi trong HTML bằng cách sử dụng thẻ `<script>`.
+- Thẻ `<script>` chứa mã JavaScript được thực thi tự động khi trình duyệt xử lý thẻ đó.
 
 ```html
 <!DOCTYPE html>
@@ -50,7 +50,7 @@
 </html>
 ```
 
-- Tuy nhiên nếu có nhiều mã JavaScript, chúng ta có thể đặt nó vào một tệp riêng bằng thuộc tính `src` của thẻ <script>
+- Tuy nhiên nếu có nhiều mã JavaScript, chúng ta có thể đặt nó vào một tệp riêng bằng thuộc tính `src` của thẻ `<script>`
 
 ```html
 <!DOCTYPE html>
@@ -62,5 +62,6 @@
 ```
 
 ## Best practice
+
 - Nên tạo tệp Javascript riêng và đính kèm vào HTML
 - Nên đặt thẻ script ở dưới cùng của thẻ body (để tránh trường hợp các đoạn code bị lỗi thì giao diện đã được hiển thị ra)

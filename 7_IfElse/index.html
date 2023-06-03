@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <h3>Ví dụ: tính tiền phạt thẻ tín dụng</h3>
+    <div class="mb-3">
+      <label class="form-label">
+        Nhập vào số tiền phải trả cho thẻ tín dụng
+      </label>
+      <input class="form-control" id="input-credit" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label"> Nhập vào số tiền đã thanh toán </label>
+      <input class="form-control" id="input-payment" />
+    </div>
+    <button class="btn btn-success mt-2" onclick="ex1()">Tính</button>
+
+    <hr />
+
+    <h3>Ví dụ: tính tiền lương theo giờ</h3>
+    <div class="mb-3">
+      <label class="form-label"> Nhập vào số giờ làm </label>
+      <input class="form-control" id="input-hours" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label"> Nhập vào số lương theo giờ </label>
+      <input class="form-control" id="input-salary" />
+    </div>
+    <button class="btn btn-success mt-2" onclick="ex2()">Tính</button>
+
+    <hr />
+
+    <h3>Ví dụ: tính tiền mua hàng</h3>
+    <div class="mb-3">
+      <label class="form-label">Nhập tên</label>
+      <input class="form-control" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Nhập số lượng</label>
+      <input class="form-control" id="input-quantity" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Nhập đơn giá</label>
+      <input class="form-control" id="input-price" />
+    </div>
+
+    <button class="btn btn-success mt-2" onclick="ex3()">Tính</button>
+
+    <script src="./index.js"></script>
+  </body>
+</html>

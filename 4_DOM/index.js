@@ -123,3 +123,21 @@ function addProduct() {
   tdPrice.innerHTML = productPrice;
   tr.appendChild(tdPrice);
 }
+
+function addProduct2() {
+  // B1: Lấy giá trị của 2 input tên sản phẩm và giá
+  let productName = document.getElementById("product-name").value;
+  let productPrice = document.getElementById("product-price").value;
+
+  // B2: Hiển thị ra giao diện
+  let tbody = document.getElementById("product-list");
+
+  let html = `
+    <tr>
+      <td>${productName}</td>
+      <td>${productPrice}</td>
+    </tr>
+  `;
+
+  tbody.innerHTML += html;
+}

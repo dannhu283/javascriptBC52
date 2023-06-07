@@ -82,3 +82,74 @@ function ex3() {
 
   alert(`Tổng tiền hàng: ${totalPrice}`);
 }
+
+// Toán tử bậc 3
+// let result = (biểu thức điều kiện) ? valueA : valueB
+
+let age = 18;
+
+// let allowed;
+// if(age >= 18) {
+//   allowed = true
+// } else {
+//   allowed = false
+// }
+
+// Chỉ xài thay thế if-else khi muốn gán giá trị cho 1 biến dựa vào điều kiện
+let allowed = age >= 18 ? true : false;
+
+// switch case
+/*
+  switch(12) {
+    case valueA: {         - Tương tự if(x === valueA)
+      ...
+      break;
+    }
+    case valueB: {         - if(x === valueB)
+      ...
+      break;
+    }
+    ...
+  }
+*/
+
+// Tính số ngày trong tháng
+function ex4() {
+  let month = +document.getElementById("input-month").value;
+
+  // if (
+  //   month === 1 ||
+  //   month === 3 ||
+  //   month === 5 ||
+  //   month === 7 ||
+  //   month === 8 ||
+  //   month === 10 ||
+  //   month === 12
+  // ) {
+  //   alert("Tháng có 31 ngày");
+  // }
+
+  switch (month) {
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12:
+      alert("Tháng có 31 ngày");
+      break;
+    case 4:
+    case 6:
+    case 9:
+    case 11:
+      alert("Tháng có 30 ngày");
+      break;
+    case 2:
+      alert("Tháng có 28 ngày");
+      break;
+    default:
+      alert("Tháng không hợp lệ");
+      break;
+  }
+}

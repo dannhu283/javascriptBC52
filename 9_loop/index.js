@@ -54,7 +54,6 @@ document.getElementById("btn-2").onclick = () => {
   outputEl.innerHTML = total;
   outputEl.classList.remove("d-none");
 };
-
 // 3. vòng lặp for
 for (let i = 1; i <= 5; i++) {
   console.log("hello DN");

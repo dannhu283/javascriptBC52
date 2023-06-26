@@ -79,7 +79,7 @@ if (indexTiger !== -1) {
   console.log("không có giá trị tiger trong animals");
 }
 
-//-array.includes(value) trả về tru nếu tìm thấy ,ngược lại là false
+//-array.includes(value) trả về true nếu tìm thấy ,ngược lại là false
 let hasDuck = animals.includes("duck");
 if (hasDuck) {
   console.log("có giá trị duck trong animals");

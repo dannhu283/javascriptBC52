@@ -2,29 +2,11 @@
 let students = [];
 
 function addStudent() {
-  // B1: DOM
-  let id = document.getElementById("txtMaSV").value;
-  let name = document.getElementById("txtTenSV").value;
-  let email = document.getElementById("txtEmail").value;
-  let password = document.getElementById("txtPass").value;
-  let dateOfBirth = document.getElementById("txtNgaySinh").value;
-  let course = document.getElementById("khSV").value;
-  let math = +document.getElementById("txtDiemToan").value;
-  let physics = +document.getElementById("txtDiemLy").value;
-  let chemistry = +document.getElementById("txtDiemHoa").value;
-
-  // B2: Khởi tạo đối tượng student
-  let student = new Student(
-    id,
-    name,
-    email,
-    password,
-    dateOfBirth,
-    course,
-    math,
-    physics,
-    chemistry
-  );
+  // B1 + B2: Gọi tới hàm validate để kiểm tra form và tạo đối tượng student
+  let student = validate();
+  if (!student) {
+    return;
+  }
 
   // B3: Thêm đối tượng student vừa tạo vào danh sách
   students.push(student);
@@ -117,13 +99,13 @@ function updateStudent() {
 
   // B3: Tìm index của phần tử student cần cập nhật
   let index = students.findIndex((value) => {
-    return value.id === id
+    return value.id === id;
   });
   // Thay thế phần tử thứ index cho object student mới tạo
   students[index] = student;
 
   // B4: Hiển thị
-  display(students)
+  display(students);
 
   // B5: Reset form
   resetForm();
@@ -178,4 +160,132 @@ function resetForm() {
 
   document.getElementById("txtMaSV").disabled = false;
   document.getElementById("btnAdd").disabled = false;
+}
+
+// Hàm kiểm tra giá trị có rỗng hay không
+function isRequired(value) {
+  if (!value.trim()) {
+    // Chuỗi rỗng
+    return false;
+  }
+  return true;
+}
+
+// Hàm kiểm tra điểm có hợp lệ hay không
+function isScore(value) {
+  if (isNaN(value)) {
+    return false;
+  }
+  if (value < 0 || value > 10) {
+    return false;
+  }
+  return true;
+}
+
+// Hàm kiểm tra mật khẩu: ít nhất 8 kí tự, có ít nhất 1 chử hoa, 1 chử thường, 1 số, 1 kí tự đặc biệt
+function isPassword(value) {
+  let regex =
+    /^(?=.*[A-Z])(?=.*[!&%\/()=\?\^\*\+\]\[#><;:,\._-|@])(?=.*[0-9])(?=.*[a-z]).{8,40}$/;
+
+  return regex.test(value);
+}
+
+// Hàm kiểm tra thông tin của student có hợp lệ hay không
+function validate() {
+  let id = document.getElementById("txtMaSV").value;
+  let name = document.getElementById("txtTenSV").value;
+  let email = document.getElementById("txtEmail").value;
+  let password = document.getElementById("txtPass").value;
+  let dateOfBirth = document.getElementById("txtNgaySinh").value;
+  let course = document.getElementById("khSV").value;
+  let math = document.getElementById("txtDiemToan").value;
+  let physics = document.getElementById("txtDiemLy").value;
+  let chemistry = document.getElementById("txtDiemHoa").value;
+
+  let isValid = true;
+
+  if (!isRequired(id)) {
+    // Không hợp lệ
+    isValid = false;
+    document.getElementById("spanMaSV").innerHTML = "Mã không được để trống";
+  }
+
+  if (!isRequired(name)) {
+    isValid = false;
+    document.getElementById("spanTenSV").innerHTML = "Tên không được để trống";
+  }
+
+  if (!isRequired(email)) {
+    isValid = false;
+    document.getElementById("spanEmailSV").innerHTML =
+      "Email không được để trống";
+  }
+
+  let pwSpan = document.getElementById("spanMatKhau");
+  if (!isRequired(password)) {
+    isValid = false;
+    pwSpan.innerHTML = "Mật khẩu không được để trống";
+  } else if(!isPassword(password)) {
+    isValid = false;
+    pwSpan.innerHTML = "Mật khẩu không hợp lệ";
+  }
+
+  if (!isRequired(dateOfBirth)) {
+    isValid = false;
+    document.getElementById("spanNgaySinh").innerHTML =
+      "Ngày sinh không được để trống";
+  }
+
+  if (!isRequired(course)) {
+    isValid = false;
+    document.getElementById("spanKhoaHoc").innerHTML =
+      "Khoá học không được để trống";
+  }
+
+  let mathSpan = document.getElementById("spanToan");
+  if (!isRequired(math)) {
+    isValid = false;
+    mathSpan.innerHTML = "Điểm toán không được để trống";
+  } else if (!isScore(+math)) {
+    isValid = false;
+    mathSpan.innerHTML = "Điểm toán không hợp lệ";
+  }
+
+  let physicsSpan = document.getElementById("spanLy");
+  if (!isRequired(physics)) {
+    isValid = false;
+    physicsSpan.innerHTML = "Điểm lý không được để trống";
+  } else if (!isScore(+physics)) {
+    isValid = false;
+    physicsSpan.innerHTML = "Điểm lý không hợp lệ";
+  }
+
+  let chemistrySpan = document.getElementById("spanHoa");
+  if (!isRequired(chemistry)) {
+    isValid = false;
+    chemistrySpan.innerHTML = "Điểm hoá không được để trống";
+  } else if (!isScore(chemistry)) {
+    isValid = false;
+    chemistrySpan.innerHTML = "Điểm hoá không hợp lệ";
+  }
+
+  if (isValid) {
+    // Form hợp lệ, tạo ra trả về đối tượng student
+    let student = new Student(
+      id,
+      name,
+      email,
+      password,
+      dateOfBirth,
+      course,
+      +math,
+      +physics,
+      +chemistry
+    );
+
+    return student;
+  }
+
+  // Form không hợp lệ => Không tạo đối tượng student
+  return undefined;
 }

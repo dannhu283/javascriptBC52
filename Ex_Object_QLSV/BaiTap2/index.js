@@ -1,8 +1,12 @@
 // Danh sách sinh viên
 let students = [];
 
+// Biến kiểm tra xem form đã được submit hay chưa
+let isSubmitted = false;
+
 function addStudent() {
   // B1 + B2: Gọi tới hàm validate để kiểm tra form và tạo đối tượng student
+  isSubmitted = true;
   let student = validate();
   if (!student) {
     return;
@@ -73,29 +77,11 @@ function selectStudent(studentId) {
 }
 
 function updateStudent() {
-  // B1: DOM
-  let id = document.getElementById("txtMaSV").value;
-  let name = document.getElementById("txtTenSV").value;
-  let email = document.getElementById("txtEmail").value;
-  let password = document.getElementById("txtPass").value;
-  let dateOfBirth = document.getElementById("txtNgaySinh").value;
-  let course = document.getElementById("khSV").value;
-  let math = +document.getElementById("txtDiemToan").value;
-  let physics = +document.getElementById("txtDiemLy").value;
-  let chemistry = +document.getElementById("txtDiemHoa").value;
-
-  // B2: Khởi tạo đối tượng student
-  let student = new Student(
-    id,
-    name,
-    email,
-    password,
-    dateOfBirth,
-    course,
-    math,
-    physics,
-    chemistry
-  );
+  isSubmitted = true;
+  let student = validate();
+  if (!student) {
+    return;
+  }
 
   // B3: Tìm index của phần tử student cần cập nhật
   let index = students.findIndex((value) => {
@@ -148,6 +134,8 @@ function display(students) {
 
 // Hàm reset giá trị của form
 function resetForm() {
+  isSubmitted = false;
+
   document.getElementById("txtMaSV").value = "";
   document.getElementById("txtTenSV").value = "";
   document.getElementById("txtEmail").value = "";
@@ -157,6 +145,16 @@ function resetForm() {
   document.getElementById("txtDiemToan").value = "";
   document.getElementById("txtDiemLy").value = "";
   document.getElementById("txtDiemHoa").value = "";
+
+  document.getElementById("spanMaSV").innerHTML = "";
+  document.getElementById("spanTenSV").innerHTML = "";
+  document.getElementById("spanEmailSV").innerHTML = "";
+  document.getElementById("spanMatKhau").innerHTML = "";
+  document.getElementById("spanNgaySinh").innerHTML = "";
+  document.getElementById("spanKhoaHoc").innerHTML = "";
+  document.getElementById("spanToan").innerHTML = "";
+  document.getElementById("spanLy").innerHTML = "";
+  document.getElementById("spanHoa").innerHTML = "";
 
   document.getElementById("txtMaSV").disabled = false;
   document.getElementById("btnAdd").disabled = false;
@@ -190,6 +188,12 @@ function isPassword(value) {
   return regex.test(value);
 }
 
+// Hàm kiểm tra email
+function isEmail(value) {
+  let regex = /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/;
+  return regex.test(value);
+}
+
 // Hàm kiểm tra thông tin của student có hợp lệ hay không
 function validate() {
   let id = document.getElementById("txtMaSV").value;
@@ -215,17 +219,20 @@ function validate() {
     document.getElementById("spanTenSV").innerHTML = "Tên không được để trống";
   }
 
+  let emailSpan = document.getElementById("spanEmailSV");
   if (!isRequired(email)) {
     isValid = false;
-    document.getElementById("spanEmailSV").innerHTML =
-      "Email không được để trống";
+    emailSpan.innerHTML = "Email không được để trống";
+  } else if (!isEmail(email)) {
+    isValid = false;
+    emailSpan.innerHTML = "Email không hợp lệ";
   }
 
   let pwSpan = document.getElementById("spanMatKhau");
   if (!isRequired(password)) {
     isValid = false;
     pwSpan.innerHTML = "Mật khẩu không được để trống";
-  } else if(!isPassword(password)) {
+  } else if (!isPassword(password)) {
     isValid = false;
     pwSpan.innerHTML = "Mật khẩu không hợp lệ";
   }
@@ -289,3 +296,16 @@ function validate() {
   // Form không hợp lệ => Không tạo đối tượng student
   return undefined;
 }
+
+document.getElementById("txtMaSV").oninput = (event) => {
+  if (!isSubmitted) return;
+
+  // Tất cả sự kiện trong Javascript đều nhận được đối tượng event
+  // event.target: phần tử html phát sinh sự kiện
+  let idSpan = document.getElementById("spanMaSV");
+  if (isRequired(event.target.value)) {
+    idSpan.innerHTML = "";
+  } else {
+    idSpan.innerHTML = "Mã không được để trống";
+  }
+};

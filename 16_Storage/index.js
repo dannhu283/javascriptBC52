@@ -25,3 +25,22 @@ localStorage.setItem("userJson", userJson);
 let userStorageJson = localStorage.getItem("userJson");
 let userObject = JSON.parse(userStorageJson);
 console.log("userObject:", userObject);
+
+let student = {
+  id: 1,
+  name: "Nam",
+
+  calcScore() {
+    return 10;
+  },
+};
+
+// Khi chuyển array/object thành JSON, các phương thức trong object sẽ bị loại bỏ
+let studentJson = JSON.stringify(student)
+console.log("studentJson", studentJson);
+
+// sessionStorage tương tự như localStorage nhưng dữ liệu sẽ bị mất khi ta tắt trình duyệt đi
+
+
+
+

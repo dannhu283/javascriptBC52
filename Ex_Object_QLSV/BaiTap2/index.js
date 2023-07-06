@@ -4,6 +4,27 @@ let students = [];
 // Biến kiểm tra xem form đã được submit hay chưa
 let isSubmitted = false;
 
+// Gọi hàm init để khởi tạo danh sách sinh viên (nếu có)
+init();
+
+function init() {
+  students = JSON.parse(localStorage.getItem("students")) || [];
+  students = students.map((value) => {
+    return new Student(
+      value.id,
+      value.name,
+      value.email,
+      value.password,
+      value.dateOfBirth,
+      value.course,
+      value.math,
+      value.physics,
+      value.chemistry
+    );
+  });
+  display(students);
+}
+
 function addStudent() {
   // B1 + B2: Gọi tới hàm validate để kiểm tra form và tạo đối tượng student
   isSubmitted = true;
@@ -14,6 +35,7 @@ function addStudent() {
 
   // B3: Thêm đối tượng student vừa tạo vào danh sách
   students.push(student);
+  localStorage.setItem("students", JSON.stringify(students));
 
   // B4: Hiển thị danh sách student ra giao diện
   display(students);
@@ -50,6 +72,7 @@ function removeStudent(studentId) {
   students = students.filter((value) => {
     return value.id !== studentId;
   });
+  localStorage.setItem("students", JSON.stringify(students));
 
   display(students);
 }
@@ -85,10 +108,11 @@ function updateStudent() {
 
   // B3: Tìm index của phần tử student cần cập nhật
   let index = students.findIndex((value) => {
-    return value.id === id;
+    return value.id === student.id;
   });
   // Thay thế phần tử thứ index cho object student mới tạo
   students[index] = student;
+  localStorage.setItem("students", JSON.stringify(students));
 
   // B4: Hiển thị
   display(students);

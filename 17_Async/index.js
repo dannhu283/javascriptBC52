@@ -40,12 +40,17 @@ promise.catch((error) => {
 
 // API
 // Các thành phần của Web API:
-// - url: www.cybersoft.edu.vn/users/1234
+// - url: www.cybersoft.edu.vn/users
 // - method:
 //   + GET: yêu cầu trả về một tài nguyên (resource)
 //   + POST: tạo mới một tài nguyên
 //   + PUT: cập nhật một tài nguyên
 //   + DELETE: xoá một tài nguyên
+// - status code
+//   + 200: Success
+//   + 404: Not found
+//   + 400: Bad request
+//   + 500: Internal server
 
 // Thực hành API
 function getUsers() {

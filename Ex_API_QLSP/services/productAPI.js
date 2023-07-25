@@ -1,7 +1,10 @@
-function apiGetProducts() {
+function apiGetProducts(searchValue) {
   return axios({
-    url: "https://64a6ad14096b3f0fcc8042cd.mockapi.io/products",
+    url: `https://64a6ad14096b3f0fcc8042cd.mockapi.io/products`,
     method: "GET",
+    params: {
+      name: searchValue || undefined,
+    },
   });
 }
 
@@ -34,13 +37,3 @@ function apiDeleteProduct(productId) {
     method: "DELETE",
   });
 }
-
-
-
-
-
-
-
-
-
-
